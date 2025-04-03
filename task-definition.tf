@@ -33,7 +33,7 @@ resource "aws_ecs_task_definition" "main" {
     }
   }
 
-  container_definitions = jsonencode([
+  container_definitions = jsonencode(concat([
     {
       name = lookup(var.container_settings, "service_name")
 
@@ -74,7 +74,7 @@ resource "aws_ecs_task_definition" "main" {
 
       logConfiguration = var.log_configuration
     }
-  ])
+  ], var.additional_container_definitions))
 
   execution_role_arn = aws_iam_role.ecs-agent.arn
   task_role_arn      = var.task_role_arn

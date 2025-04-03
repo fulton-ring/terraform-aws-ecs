@@ -53,6 +53,43 @@ variable "container_cpu_architecture" {
   }
 }
 
+variable "additional_container_definitions" {
+  description = "Additional container definitions to add to the task definition"
+  type = list(object({
+    name       = string
+    image      = string
+    command    = optional(list(string))
+    privileged = optional(bool)
+    cpu        = optional(number)
+    memory     = optional(number)
+    essential  = optional(bool)
+    portMappings = optional(list(object({
+      containerPort = number
+      hostPort      = number
+      protocol      = optional(string)
+    })))
+    environment = optional(list(object({
+      name  = string
+      value = string
+    })))
+    secrets = optional(list(object({
+      name      = string
+      valueFrom = string
+    })))
+    mountPoints = optional(list(object({
+      containerPath = string
+      readOnly      = optional(bool)
+      sourceVolume  = string
+    })))
+    linuxParameters = optional(object({
+      capabilities = optional(list(string))
+    }))
+    logConfiguration = optional(map(any))
+  }))
+
+  default = []
+}
+
 variable "app_port_protocol" {
   description = "Protocol for the application port"
   type        = string
