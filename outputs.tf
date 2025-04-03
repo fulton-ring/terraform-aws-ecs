@@ -23,3 +23,7 @@ output "task_definition" {
   value       = aws_ecs_task_definition.main.arn
 }
 
+output "execution_role_arn" {
+  description = "ARN of the execution role"
+  value       = aws_iam_role.ecs-agent.arn
+}
