@@ -137,13 +137,13 @@ variable "efs_settings" {
   })
 
   validation {
-    condition = var.efs_settings == null || contains(["ENABLED", "DISABLED"], lookup(var.efs_settings, "transit_encryption"))
+    condition = var.efs_settings == null ? true : contains(["ENABLED", "DISABLED"], var.efs_settings.transit_encryption)
 
     error_message = "Transit encryption needs to be ENABLED or DISABLED"
   }
 
   validation {
-    condition = var.efs_settings == null || contains(["ENABLED", "DISABLED"], lookup(var.efs_settings, "iam_authz"))
+    condition = var.efs_settings == null ? true : contains(["ENABLED", "DISABLED"], var.efs_settings.iam_authz)
 
     error_message = "IAM authorization needs to be ENABLED or DISABLED"
   }
