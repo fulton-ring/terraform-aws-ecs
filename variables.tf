@@ -61,7 +61,7 @@ variable "additional_container_definitions" {
     command    = optional(list(string))
     privileged = optional(bool)
     cpu        = optional(number)
-    memory_mb  = optional(number)
+    memory     = optional(number)
     essential  = optional(bool)
     portMappings = optional(list(object({
       containerPort = number

@@ -3,7 +3,7 @@ resource "aws_ecs_task_definition" "main" {
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   cpu                      = lookup(var.container_capacity, "cpu") + sum([for container in var.additional_container_definitions : try(container.cpu, 0)])
-  memory                   = lookup(var.container_capacity, "memory_mb") + sum([for container in var.additional_container_definitions : try(container.memory_mb, 0)])
+  memory                   = lookup(var.container_capacity, "memory_mb") + sum([for container in var.additional_container_definitions : try(container.memory, 0)])
 
   ephemeral_storage {
     size_in_gib = var.container_ephemeral_storage
