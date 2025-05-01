@@ -84,7 +84,14 @@ variable "additional_container_definitions" {
     linuxParameters = optional(object({
       capabilities = optional(list(string))
     }))
-    logConfiguration = optional(map(any))
+    logConfiguration = optional(object({
+      logdriver = string
+      options = object({
+        awslogs-group         = string
+        awslogs-region        = string
+        awslogs-stream-prefix = string
+      })
+    }))
   }))
 
   default = []
